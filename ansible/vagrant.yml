@@ -1,0 +1,93 @@
+---
+- hosts: all
+  pre_tasks:
+  - name: 'install python2'
+    raw: sudo apt-get -y install python-simplejson
+  roles:
+#      - setup
+      - {
+          role: setup_project,
+          projectname: pipsevents,
+        }
+      - {
+          role: setup_project,
+          projectname: polefit,
+        }
+      - {
+          role: setup_project,
+          projectname: flexibeast,
+        }
+      - {
+          role: setup_project,
+          projectname: poleperformance,
+        }
+      - {
+          role: setup_project,
+          projectname: aliciaskeys,
+        }
+#      - mailcatcher
+#      - {
+#        role: deploy,
+#        projectname: pipsevents,
+#        db_name: "{{ pipsevents.db_name }}",
+#        db_user: "{{ pipsevents.db_user }}",
+#        db_password: "{{ pipsevents.db_password }}",
+#        secret_key: "{{ pipsevents.secret_key }}",
+#        email_host_password: "{{ pipsevents.email_host_password }}",
+#        default_studio_email: "{{ pipsevents.default_studio_email }}",
+#        default_paypal_email: "{{ pipsevents.default_paypal_email }}",
+#        simplecrypt_password: "{{ pipsevents.simplecrypt_password }}",
+#        mailchimp_user: "{{ pipsevents.mailchimp_user }}",
+#        mailchimp_secret: "{{ pipsevents.mailchimp_secret }}",
+#        mailchimp_list_id: "{{ pipsevents.mailchimp_list_id }}",
+#        mailchimp_webhook_secret: "{{ pipsevents.mailchimp_webhook_secret }}",
+#        django_commands: "{{ pipsevents.django_commands }}"
+#      }
+#      - {
+#        role: deploy,
+#        projectname: polefit,
+#        db_name: "{{ polefit.db_name }}",
+#        db_user: "{{ polefit.db_user }}",
+#        db_password: "{{ polefit.db_password }}",
+#        secret_key: "{{ polefit.secret_key }}",
+#        email_host_password: "{{ polefit.email_host_password }}",
+#        default_paypal_email: "{{ polefit.default_paypal_email }}",
+#        simplecrypt_password: "{{ polefit.simplecrypt_password }}",
+#        django_commands: "{{ polefit.django_commands }}"
+#      }
+#      - {
+#        role: deploy,
+#        projectname: flexibeast,
+#        db_name: "{{ flexibeast.db_name }}",
+#        db_user: "{{ flexibeast.db_user }}",
+#        db_password: "{{ flexibeast.db_password }}",
+#        secret_key: "{{ flexibeast.secret_key }}",
+#        email_host_password: "{{ flexibeast.email_host_password }}",
+#        default_studio_email: "{{ flexibeast.default_studio_email }}",
+#        django_commands: "{{ flexibeast.django_commands }}"
+#      }
+#      - {
+#        role: deploy,
+#        projectname: poleperformance,
+#        db_name: "{{ poleperformance.db_name }}",
+#        db_user: "{{ poleperformance.db_user }}",
+#        db_password: "{{ poleperformance.db_password }}",
+#        secret_key: "{{ poleperformance.secret_key }}",
+#        email_host_password: "{{ poleperformance.email_host_password }}",
+#        default_studio_email: "{{ poleperformance.default_studio_email }}",
+#        default_paypal_email: "{{ poleperformance.default_paypal_email }}",
+#        simplecrypt_password: "{{ poleperformance.simplecrypt_password }}",
+#        django_commands: "{{ poleperformance.django_commands }}"
+#      }
+#      - {
+#        role: deploy,
+#        projectname: aliciaskeys,
+#        db_name: "{{ aliciaskeys.db_name }}",
+#        db_user: "{{ aliciaskeys.db_user }}",
+#        db_password: "{{ aliciaskeys.db_password }}",
+#        secret_key: "{{ aliciaskeys.secret_key }}",
+#        email_host_password: "{{ aliciaskeys.email_host_password }}",
+#        django_commands: "{{ aliciaskeys.django_commands }}"
+#      }
+  vars_files:
+   - vault.yaml

@@ -1,0 +1,7 @@
+.vagrant/
+venvs/
+*.pyc
+vagrant.retry
+ansible/.vaultpass
+.idea/
+.DS_Store

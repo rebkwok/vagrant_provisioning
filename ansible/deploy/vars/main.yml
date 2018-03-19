@@ -1,0 +1,4 @@
+---
+virtualenv_path: /src/venvs/{{ projectname }}_venv
+project_root_path: /src/{{ projectname }}
+python3_path: /usr/bin/python3.5

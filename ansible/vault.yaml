@@ -1,0 +1,61 @@
+pipsevents:
+  db_password: sdjgh34iutwefhfgbqkj3
+  db_user: watermelon
+  db_name: pipsevents
+  secret_key: sdfjhssdfgdfgsdhethdfelkfwoe
+  email_host_password: dummy_password
+  default_studio_email: thewatermelonstudio@hotmail.com
+  default_paypal_email: test-paypal@watermelon.com
+  simplecrypt_password: secret
+  mailchimp_user: rebkwok
+  mailchimp_secret: dd31a41d0f9b3074a0749f537a1f21db-us6
+  mailchimp_list_id: 6b3893abf3
+  mailchimp_webhook_secret: testwebhook
+  django_commands:
+    - migrate
+    - setup_test_data
+
+flexibeast:
+  db_password: sdjgh34iutwefhfgbqkj3
+  db_user: flexibeast
+  db_name: flexibeast
+  secret_key: sdfjhsdfelkfwoe
+  email_host_password: dummy_password
+  default_studio_email: flexibeasttest@gmail.com
+  django_commands:
+    - migrate
+    - setup_fb
+
+polefit:
+  db_password: sdjgh34iutwefhfgbqkj3
+  db_user: starlet
+  db_name: polefit
+  secret_key: sdfjhkjs2897jksdhfka323rlk
+  email_host_password: dummy_password
+  default_paypal_email: carouselfitness-test@gmail.com
+  simplecrypt_password: secret
+  django_commands:
+    - migrate
+    - populatedb
+
+poleperformance:
+  db_password: sdjgh34iutwefhfgbqkj3
+  db_user: pp
+  db_name: pp
+  secret_key: sdfjhkjs2897jksdhfka323rlk
+  email_host_password: dummy_password
+  default_studio_email: 'thewatermelonstudio@hotmail.com'
+  default_paypal_email: test-paypal@poleperformance.com
+  simplecrypt_password: secret
+  django_commands:
+    - migrate
+    - setup_test_data
+
+aliciaskeys:
+  db_password: ajlajdlkasacnmasdjaks
+  db_user: aliciaskeys
+  db_name: aliciaskeys
+  secret_key: skjalsjdasdlaskdjlaskjdla
+  email_host_password: dummy_password
+  django_commands:
+    - migrate
