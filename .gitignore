@@ -1,5 +1,5 @@
 .vagrant/
-venvs/
+venvs/*/
 *.pyc
 vagrant.retry
 ansible/.vaultpass
