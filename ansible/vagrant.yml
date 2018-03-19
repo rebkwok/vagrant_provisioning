@@ -4,26 +4,36 @@
   - name: 'install python2'
     raw: sudo apt-get -y install python-simplejson
   roles:
-#      - setup
+      - setup
       - {
           role: setup_project,
           projectname: pipsevents,
+          runserver_alias: runserverpips,
+          port: 7000
         }
       - {
           role: setup_project,
           projectname: polefit,
+          runserver_alias: runserverpf,
+          port: 7200
         }
       - {
           role: setup_project,
           projectname: flexibeast,
+          runserver_alias: runserverfb,
+          port: 7100
         }
       - {
           role: setup_project,
           projectname: poleperformance,
+          runserver_alias: runserverpp,
+          port: 7300
         }
       - {
           role: setup_project,
           projectname: aliciaskeys,
+          runserver_alias: runserverak,
+          port: 7400
         }
 #      - mailcatcher
 #      - {

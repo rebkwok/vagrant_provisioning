@@ -14,7 +14,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Create a forwarded port mapping which allows access to a specific port
     # within the machine from a port on the host machine. In the example below,
     # accessing "localhost:8000" will access port 80 on the guest machine.
-    config.vm.network :forwarded_port, host: 7000, guest: 18000
+    config.vm.network :forwarded_port, host: 7000, guest: 7000 # pipsevents
+    config.vm.network :forwarded_port, host: 7100, guest: 7100 # flexibeast
+    config.vm.network :forwarded_port, host: 7200, guest: 7200 # polefit
+    config.vm.network :forwarded_port, host: 7300, guest: 7300 # poleperformance
+    config.vm.network :forwarded_port, host: 7400, guest: 7400 # aliciaskeys
     config.vm.network :forwarded_port, host: 1080, guest: 1080
 
     # Create a public network, which generally matched to bridged network.
@@ -47,7 +51,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # ansible provisioning
     config.vm.provision "ansible" do |ansible|
-      ansible.playbook = "provision/vagrant.yml"
+      ansible.playbook = "ansible/vagrant.yml"
       ansible.vault_password_file = "ansible/.vaultpass"
     end
 
