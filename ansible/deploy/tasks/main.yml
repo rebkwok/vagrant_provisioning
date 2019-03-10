@@ -18,27 +18,36 @@
   become_user: postgres
   postgresql_user: user={{ db_user }} db={{ db_name }} priv=ALL
 
-- name: Setup Virtualenv and upgrade setuptools and pip ({{ projectname }})
+- name: Create virtualenv
+  command: "{{ python }} -m venv {{ virtualenv_path }}"
+  become: yes
+  become_user: vagrant
+  args:
+    creates: "{{ virtualenv_path }}"
+
+- name: Upgrade setuptools and pip ({{ projectname }})
   pip:
-    name: "{{ item }}"
+    name:
+      - setuptools
+      - pip
     state: latest
     virtualenv: "{{ virtualenv_path }}"
-    virtualenv_python: "{{ python3_path }}"
-  with_items:
-    - setuptools
-    - pip
+    virtualenv_python: "{{ python }}"
 
 - name: Install requirements ({{ projectname }})
   pip:
     virtualenv: "{{ virtualenv_path }}"
+    virtualenv_python: "{{ python }}"
     requirements: "{{ project_root_path }}/requirements.txt"
 
 - name: Install some dev tools ({{ projectname }})
-  pip: name={{ item }} virtualenv={{ virtualenv_path }}
-  with_items:
-    - ipdb
-    - ipython
-    - django-extensions
+  pip:
+    name:
+      - ipdb
+      - ipython
+      - django-extensions
+    virtualenv: "{{ virtualenv_path }}"
+    virtualenv_python: "{{ python }}"
 
 - name: Install .env file ({{ projectname }})
   template: src=env_{{ projectname}}.j2 dest="{{ project_root_path }}/{{ projectname }}/.env" force=no
@@ -46,4 +55,5 @@
 - name: Django commands ({{ projectname }})
   django_manage: command={{ item }} app_path={{ project_root_path }} virtualenv={{ virtualenv_path }}
   with_items: "{{ django_commands }}"
+  ignore_errors: yes
 

@@ -1,11 +1,12 @@
 ---
 - name: Install ruby requirements
   become: true
-  apt: pkg={{ item }} state=installed
-  with_items:
-    - libsqlite3-dev
-    - ruby-dev
-    - ruby
+  apt:
+    pkg:
+      - libsqlite3-dev
+      - ruby-dev
+      - ruby
+    state: present
 
 - name: Install Mailcatcher
   become: true

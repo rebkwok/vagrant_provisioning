@@ -1,4 +1,4 @@
 alias {{ projectname }}="cd /src/{{ projectname }} && . /src/venvs/{{ projectname }}_venv/bin/activate"
-alias {{ runserver_alias }}="echo 'Application is running at 127.0.0.1:{{ port }}'
-./manage.py runserver 0.0.0.0:{{ port }}"
+alias {{ runserver_alias }}="echo 'Application is running at 127.0.0.1:{{ forwarded_port }}'
+./manage.py runserver 0.0.0.0:{{ forwarded_port }}"
 

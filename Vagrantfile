@@ -53,6 +53,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.provision "ansible" do |ansible|
       ansible.playbook = "ansible/vagrant.yml"
       ansible.vault_password_file = "ansible/.vaultpass"
+      ansible.verbose = "v"
     end
 
 # For setting up heroku push

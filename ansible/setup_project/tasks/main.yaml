@@ -1,9 +1,9 @@
 ---
-- name: Add bashrc_extra file
+- name: Add bashrc_extra file ({{ projectname }})
   become: true
   template: src=bashrc_extra dest=/home/vagrant/.bashrc_extra_{{ projectname }}
 
-- name: Add to bashrc file
+- name: Add to bashrc file ({{ projectname }})
   become: true
   lineinfile: >
     dest=/home/vagrant/.bashrc
@@ -11,6 +11,6 @@
     backup=yes
     line='source .bashrc_extra_{{ projectname }}'
 
-- name: Give vagrant user permission for log folder
+- name: Give vagrant user permission for log folder ({{ projectname }})
   become: true
   file: path={{ log_path }} state=directory mode=0777 owner=vagrant recurse=yes group=vagrant
