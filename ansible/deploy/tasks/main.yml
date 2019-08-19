@@ -1,12 +1,12 @@
 ---
 - name: Create Database ({{ projectname }})
-  become: true
+  become: yes
   # PostgreSQL will only allow users to login from the postgres account by default
   become_user: postgres
   postgresql_db: name={{ db_name }}
 
 - name: Create DB User ({{ projectname }})
-  become: true
+  become: yes
   become_user: postgres
   postgresql_user: >
     name={{ db_user }}
@@ -14,16 +14,9 @@
     state=present role_attr_flags=NOSUPERUSER,CREATEDB
 
 - name: Provide user with DB permissions ({{ projectname }})
-  become: true
+  become: yes
   become_user: postgres
   postgresql_user: user={{ db_user }} db={{ db_name }} priv=ALL
-
-- name: Create virtualenv
-  command: "{{ python }} -m venv {{ virtualenv_path }}"
-  become: yes
-  become_user: vagrant
-  args:
-    creates: "{{ virtualenv_path }}"
 
 - name: Upgrade setuptools and pip ({{ projectname }})
   pip:
@@ -32,12 +25,11 @@
       - pip
     state: latest
     virtualenv: "{{ virtualenv_path }}"
-    virtualenv_python: "{{ python }}"
+    virtualenv_command: "{{ python }} -m virtualenv"
 
 - name: Install requirements ({{ projectname }})
   pip:
     virtualenv: "{{ virtualenv_path }}"
-    virtualenv_python: "{{ python }}"
     requirements: "{{ project_root_path }}/requirements.txt"
 
 - name: Install some dev tools ({{ projectname }})
@@ -47,7 +39,6 @@
       - ipython
       - django-extensions
     virtualenv: "{{ virtualenv_path }}"
-    virtualenv_python: "{{ python }}"
 
 - name: Install .env file ({{ projectname }})
   template: src=env_{{ projectname}}.j2 dest="{{ project_root_path }}/{{ projectname }}/.env" force=no

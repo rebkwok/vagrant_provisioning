@@ -1,20 +1,21 @@
 ---
 - name: Install ruby requirements
-  become: true
+  become: yes
   apt:
     pkg:
       - libsqlite3-dev
       - ruby-dev
       - ruby
     state: present
+    force_apt_get: yes
 
 - name: Install Mailcatcher
-  become: true
+  become: yes
   gem: name=mailcatcher state=latest user_install=no build_flags=conservative
   failed_when: false
 
 - name: Add mailcatcher conf file
-  become: true
+  become: yes
   copy: src=mailcatcher.conf dest=/etc/init/mailcatcher.conf
 
 - name: Make sure Mailcatcher is not running

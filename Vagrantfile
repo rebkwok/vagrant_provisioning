@@ -36,10 +36,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # set up synced folders
     config.vm.synced_folder "venvs", "/src/venvs"
     config.vm.synced_folder "~/projects/pipsevents", "/src/pipsevents"
-    config.vm.synced_folder "~/projects/pp_web", "/src/poleperformance"
+    #config.vm.synced_folder "~/projects/pp_web", "/src/poleperformance"
     config.vm.synced_folder "~/projects/polefit", "/src/polefit"
-    config.vm.synced_folder "~/projects/aliciaskeys", "/src/aliciaskeys"
-    config.vm.synced_folder "~/projects/flexibeast", "/src/flexibeast"
+    #config.vm.synced_folder "~/projects/aliciaskeys", "/src/aliciaskeys"
+    #config.vm.synced_folder "~/projects/flexibeast", "/src/flexibeast"
 
     config.vm.provider :virtualbox do |vb|
       vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
