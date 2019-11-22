@@ -18,14 +18,19 @@
   become_user: postgres
   postgresql_user: user={{ db_user }} db={{ db_name }} priv=ALL
 
-- name: Upgrade setuptools and pip ({{ projectname }})
-  pip:
-    name:
-      - setuptools
-      - pip
-    state: latest
-    virtualenv: "{{ virtualenv_path }}"
-    virtualenv_command: "{{ python }} -m virtualenv"
+- name: Create virtualenv
+  command: "{{ python }} -m venv {{ virtualenv_path }}"
+  args:
+    creates: "{{ virtualenv_path }}"
+
+#- name: Upgrade setuptools and pip ({{ projectname }})
+#  pip:
+#    name:
+#      - setuptools
+#      - pip
+#    state: latest
+#    virtualenv: "{{ virtualenv_path }}"
+#    virtualenv_command: "{{ python }} -m venv {{ virtualenv_path }}"
 
 - name: Install requirements ({{ projectname }})
   pip:

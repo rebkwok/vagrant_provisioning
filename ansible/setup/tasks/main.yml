@@ -6,41 +6,45 @@
     update_cache: yes
     force_apt_get: yes
 
-#- name: Add apt repository for python 3.7
-#  become: true
-#  apt_repository:
-#    repo: ppa:deadsnakes/ppa
-#    update_cache: yes
-#
-#- name: Install python3
-#  become: true
-#  apt: pkg=python3.7 state=present
+- name: Add apt repository for python 3.7
+  become: true
+  apt_repository:
+    repo: ppa:deadsnakes/ppa
+    update_cache: yes
 
-#- name: Install python 3.7 dependencies
-#  apt:
-#    pkg:
-#      - python3.7
-#      - python3.7-dev
-#      - python3.7-venv
-
-- name: Install python3
+- name: Install python 3.7 dependencies
   become: yes
   apt:
-    pkg: python3
+    pkg:
+      - python3.7
+      - python3.7-dev
+      - python3.7-venv
     state: present
-    force_apt_get: yes
+
+#- name: Install python3
+#  become: yes
+#  apt:
+#    pkg: python3
+#    state: present
+#    force_apt_get: yes
 
 - name: Install python packages
   become: yes
   apt:
     pkg:
-        - python-setuptools
-        - python3-setuptools
-        - python3-pip
-        - python3-dev
-        - memcached
+#        - python-setuptools
+      - python3-setuptools
+#        - python-pip
+      - python3-pip
+      - python3-dev
+      - memcached
     state: present
     force_apt_get: yes
+
+#- name: Install pip for python3.7
+#  pip:
+#    name: pip
+#    executable: /usr/bin/python3.7 -m pip
 
 - name: Install database packages
   become: yes
@@ -80,9 +84,9 @@
   user: name=vagrant groups=www-data
   ignore_errors: yes #this user wont exist in live
 
-- name: Install virtualenv
-  become: yes
-  pip: executable=pip3 name=virtualenv
+#- name: Install virtualenv
+#  become: yes
+#  pip: executable=pip name=virtualenv
 
 - name: Allow password authentication for local socket users and allow connections other than localhost
   become: yes
@@ -106,3 +110,12 @@
 - name: Give vagrant user permission for venvs folder
   become: yes
   file: path=/src/venvs/ state=directory mode=0777 owner=vagrant recurse=no group=vagrant
+
+- name: Upgrade setuptools and pip
+  become: yes
+  pip:
+    name:
+      - setuptools
+      - pip
+    state: latest
+    executable: pip3
