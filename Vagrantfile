@@ -7,7 +7,7 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # define the box
-    config.vm.box = "bento/ubuntu-16.04"
+    config.vm.box = "bento/ubuntu-18.04"
 
     config.vm.hostname = "webserver"
 
@@ -36,10 +36,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # set up synced folders
     config.vm.synced_folder "venvs", "/src/venvs"
     config.vm.synced_folder "~/projects/pipsevents", "/src/pipsevents"
-    #config.vm.synced_folder "~/projects/pp_web", "/src/poleperformance"
+    config.vm.synced_folder "~/projects/pp_web", "/src/poleperformance"
     config.vm.synced_folder "~/projects/polefit", "/src/polefit"
-    #config.vm.synced_folder "~/projects/aliciaskeys", "/src/aliciaskeys"
-    #config.vm.synced_folder "~/projects/flexibeast", "/src/flexibeast"
+    config.vm.synced_folder "~/projects/aliciaskeys", "/src/aliciaskeys"
+    config.vm.synced_folder "~/projects/flexibeast", "/src/flexibeast"
 
     config.vm.provider :virtualbox do |vb|
       vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
@@ -54,11 +54,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ansible.playbook = "ansible/vagrant.yml"
       ansible.vault_password_file = "ansible/.vaultpass"
       ansible.verbose = "v"
+      ansible.extra_vars = { ansible_python_interpreter:"/usr/bin/python3" }
     end
-
-# For setting up heroku push
-#   config.push.define "heroku" do |push|
-#    push.app = "tranquil-oasis-6724"
 
 end
 

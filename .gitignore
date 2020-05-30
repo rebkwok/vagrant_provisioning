@@ -3,5 +3,6 @@ venvs/*/
 *.pyc
 vagrant.retry
 ansible/.vaultpass
+ansible/vault_decrypted.yaml
 .idea/
 .DS_Store
