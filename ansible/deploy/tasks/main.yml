@@ -23,15 +23,6 @@
   args:
     creates: "{{ virtualenv_path }}"
 
-#- name: Upgrade setuptools and pip ({{ projectname }})
-#  pip:
-#    name:
-#      - setuptools
-#      - pip
-#    state: latest
-#    virtualenv: "{{ virtualenv_path }}"
-#    virtualenv_command: "{{ python }} -m venv {{ virtualenv_path }}"
-
 - name: Install requirements ({{ projectname }})
   pip:
     virtualenv: "{{ virtualenv_path }}"

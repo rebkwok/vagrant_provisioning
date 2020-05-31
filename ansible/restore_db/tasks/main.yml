@@ -1,0 +1,57 @@
+---
+
+- name: Check that the db_dump file exists
+  local_action: stat path=db_dumps/{{ site }}_dump.sql
+  register: dump_file
+  vars:
+     ansible_become: no
+
+- name: Set Ansible python for remote tasks
+  set_fact: ansible_python_interpreter=/usr/bin/python3
+
+- block:
+  - name: Copy db_dump file ({{ site }})
+    # assumes you have run db_dump.yaml to dump files to db_dumps/ dir relative to playbook
+    copy:
+      src: db_dumps/{{ site }}_dump.sql
+      dest: /var/lib/postgresql/{{ site }}_to_restore.sql
+
+  - name: Dump old restore db if exists ({{ site }})
+    become_user: postgres
+    postgresql_db:
+      name: "{{site}}_restored"
+      state: absent
+
+  - name: Create {{site}}_restored database
+    become_user: postgres
+    postgresql_db:
+      name: "{{site}}_restored"
+      state: present
+
+  - name: ensure {{site}} user has access to {{site}} database
+    become_user: postgres
+    postgresql_user:
+      db: "{{site}}_restored"
+      name: "{{site}}"
+      password: "{{dbpassword}}"
+      priv: ALL
+
+  - name: ensure user does not have unnecessary privilege ({{ site }})
+    become_user: postgres
+    postgresql_user:
+      name: "{{site}}"
+      role_attr_flags: NOSUPERUSER,NOCREATEDB
+
+  - name: Restore db_dump file ({{ site }})
+    become_user: postgres
+    postgresql_db:
+      name: "{{ site }}_restored"
+      state: restore
+      target: /var/lib/postgresql/{{ site }}_to_restore.sql
+
+  - name: Remove db dump file ({{ site }})
+    file:
+      path: /var/lib/postgresql/{{ site }}_to_restore.sql
+      state: absent
+
+  when: dump_file.stat.exists

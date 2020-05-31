@@ -26,12 +26,12 @@
           runserver_alias: runserverpp,
           forwarded_port: 7300
         }
-      - {
-          role: setup_project,
-          projectname: aliciaskeys,
-          runserver_alias: runserverak,
-          forwarded_port: 7400
-        }
+#      - {
+#          role: setup_project,
+#          projectname: aliciaskeys,
+#          runserver_alias: runserverak,
+#          forwarded_port: 7400
+#        }
       - mailcatcher
       - {
         role: deploy,
@@ -86,16 +86,16 @@
         simplecrypt_password: "{{ poleperformance.simplecrypt_password }}",
         django_commands: "{{ poleperformance.django_commands }}"
       }
-      - {
-        role: deploy,
-        projectname: aliciaskeys,
-        db_name: "{{ aliciaskeys.db_name }}",
-        db_user: "{{ aliciaskeys.db_user }}",
-        db_password: "{{ aliciaskeys.db_password }}",
-        secret_key: "{{ aliciaskeys.secret_key }}",
-        email_host_password: "{{ aliciaskeys.email_host_password }}",
-        django_commands: "{{ aliciaskeys.django_commands }}"
-      }
+#      - {
+#        role: deploy,
+#        projectname: aliciaskeys,
+#        db_name: "{{ aliciaskeys.db_name }}",
+#        db_user: "{{ aliciaskeys.db_user }}",
+#        db_password: "{{ aliciaskeys.db_password }}",
+#        secret_key: "{{ aliciaskeys.secret_key }}",
+#        email_host_password: "{{ aliciaskeys.email_host_password }}",
+#        django_commands: "{{ aliciaskeys.django_commands }}"
+#      }
 
   vars_files:
    - vault.yaml

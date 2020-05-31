@@ -1,0 +1,55 @@
+---
+# Restores dumped db files from a local folder db_dumps/ (relative to this file)
+# Restores to a new database named {{ site }}_restored
+# Currently assumes you will manually delete the old db and rename the restored one
+# in psql, as postgres user:
+# DROP DATABASE <dbname>;
+# ALTER DATABASE <dbname_restored> RENAME TO <dbname>;
+
+# TO USE:
+# dump real database using server-provisioning and save to db_dumps/ folder
+# *replace `vagrant.yml` in Vagrantfile with `restore_db.yaml`
+# *comment out `ansible.extra_vars = { ansible_python_interpreter:"/usr/bin/python3" }` in Vagrantfile
+# (unless this is the location of your local python3)
+# run `vagrant provision`
+# revert *, run `vagrant provision` again to ensure everything is running
+# Drop and rename restored DB as above
+
+- hosts: all
+  become: yes
+  gather_facts: no
+
+  vars_files:
+  - vault.yaml
+
+  roles:
+  - {
+      role: restore_db,
+      site: pipsevents,
+      dbuser: "{{ pipsevents.db_user }}",
+      dbpassword: "{{ pipsevents.db_password }}"
+    }
+  - {
+      role: restore_db,
+      site: polefit,
+      dbuser: "{{ polefit.db_user }}",
+      dbpassword: "{{ polefit.db_password }}"
+    }
+  - {
+      role: restore_db,
+      site: poleperformance,
+      dbuser: "{{ poleperformance.db_user }}",
+      dbpassword: "{{ poleperformance.db_password }}"
+    }
+  - {
+      role: restore_db,
+      site: flexibeast,
+      dbuser: "{{ flexibeast.db_user }}",
+      dbpassword: "{{ flexibeast.db_password }}"
+    }
+#  - {
+#      role: restore_db,
+#      site: aliciaskeys,
+#      dbuser: "{{ db_user.aliciaskeys }}",
+#      dbpassword: "{{ db_password.aliciaskeys }}"
+#    }
