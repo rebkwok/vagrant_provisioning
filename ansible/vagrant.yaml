@@ -32,6 +32,12 @@
 #          runserver_alias: runserverak,
 #          forwarded_port: 7400
 #        }
+      - {
+          role: setup_project,
+          projectname: freedom_of_flight,
+          runserver_alias: runserverfof,
+          forwarded_port: 7500
+        }
       - mailcatcher
       - {
         role: deploy,
@@ -96,6 +102,18 @@
 #        email_host_password: "{{ aliciaskeys.email_host_password }}",
 #        django_commands: "{{ aliciaskeys.django_commands }}"
 #      }
-
+      - {
+        role: deploy,
+        projectname: freedom_of_flight,
+        db_name: "{{ freedom_of_flight.db_name }}",
+        db_user: "{{ freedom_of_flight.db_user }}",
+        db_password: "{{ freedom_of_flight.db_password }}",
+        secret_key: "{{ freedom_of_flight.secret_key }}",
+        email_host_password: "{{ freedom_of_flight.email_host_password }}",
+        default_paypal_email: "{{ freedom_of_flight.default_paypal_email }}",
+        paypal_identity_token: "{{ freedom_of_flight.paypal_identity_token }}",
+        invoice_key: "{{ freedom_of_flight.invoice_key }}",
+        django_commands: "{{ freedom_of_flight.django_commands }}"
+      }
   vars_files:
    - vault.yaml

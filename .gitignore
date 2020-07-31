@@ -4,5 +4,6 @@ venvs/*/
 vagrant.retry
 ansible/.vaultpass
 ansible/vault_decrypted.yaml
+ansible/db_dumps/
 .idea/
 .DS_Store

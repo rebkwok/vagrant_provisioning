@@ -19,6 +19,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.network :forwarded_port, host: 7200, guest: 7200 # polefit
     config.vm.network :forwarded_port, host: 7300, guest: 7300 # poleperformance
     config.vm.network :forwarded_port, host: 7400, guest: 7400 # aliciaskeys
+    config.vm.network :forwarded_port, host: 7500, guest: 7500 # freedom_of_flight
     config.vm.network :forwarded_port, host: 1080, guest: 1080
 
     # Create a public network, which generally matched to bridged network.
@@ -40,6 +41,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.synced_folder "~/projects/polefit", "/src/polefit"
     config.vm.synced_folder "~/projects/aliciaskeys", "/src/aliciaskeys"
     config.vm.synced_folder "~/projects/flexibeast", "/src/flexibeast"
+    config.vm.synced_folder "~/projects/freedom_of_flight", "/src/freedom_of_flight"
 
     config.vm.provider :virtualbox do |vb|
       vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
@@ -51,7 +53,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # ansible provisioning
     config.vm.provision "ansible" do |ansible|
-      ansible.playbook = "ansible/vagrant.yml"
+      ansible.playbook = "ansible/vagrant.yaml"
       ansible.vault_password_file = "ansible/.vaultpass"
       ansible.verbose = "v"
       ansible.extra_vars = { ansible_python_interpreter:"/usr/bin/python3" }

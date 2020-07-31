@@ -1,10 +1,10 @@
 ---
-- name: Update Apt Cache
-  become: yes
-  apt:
-    pkg: python-apt
-    update_cache: yes
-    force_apt_get: yes
+#- name: Update Apt Cache
+#  become: yes
+#  apt:
+#    pkg: python-apt
+#    update_cache: yes
+#    force_apt_get: yes
 
 - name: Add apt repository for python 3.7
   become: true
@@ -29,6 +29,7 @@
       - python3-pip
       - python3-dev
       - memcached
+      - ntp  # ensure system time stays up to date
     state: present
     force_apt_get: yes
 
